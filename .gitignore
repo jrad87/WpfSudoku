@@ -1,0 +1,6 @@
+.vs
+.vscode
+WpfSudoku/bin/*
+WpfSudoku/obj/*
+SudokuAlgorithm/bin/*
+SudokuAlgorithm/obj/*
