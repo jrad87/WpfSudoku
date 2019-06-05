@@ -42,24 +42,26 @@ namespace WpfSudoku
         private static void RestrictEditing(object sender, RoutedEventArgs e)
         {
             var _this = e.OriginalSource as TextBox;
-            var keyEvent = e as KeyEventArgs;
-            var key = keyEvent.Key;
-            if (key == Key.D0 || key == Key.D1 || key == Key.D2 || key == Key.D3 || key == Key.D4 || key == Key.D5
-             || key == Key.D6 || key == Key.D7 || key == Key.D8 || key == Key.D9 || key == Key.NumPad0 || key == Key.NumPad1
-             || key == Key.NumPad2 || key == Key.NumPad3 || key == Key.NumPad4 || key == Key.NumPad5 || key == Key.NumPad6
-             || key == Key.NumPad7 || key == Key.NumPad8 || key == Key.NumPad9)
-            {
-                if (_this.SelectedText.Length == 1 || _this.Text.Length == 00)
-                {
+            switch ((e as KeyEventArgs).Key) {
+                case Key.D7: case Key.D8: case Key.D9:
+                case Key.D4: case Key.D5: case Key.D6:
+                case Key.D1: case Key.D2: case Key.D3:
+                case Key.D0:
+                case Key.NumPad7: case Key.NumPad8: case Key.NumPad9:
+                case Key.NumPad4: case Key.NumPad5: case Key.NumPad6:
+                case Key.NumPad1: case Key.NumPad2: case Key.NumPad3:
+                case Key.NumPad0:
+                    if (_this.SelectedText.Length == 1 || _this.Text.Length == 00) {
+                        e.Handled = false;
+                    } else { e.Handled = true; }
+                    break;
+                case Key.Tab:
                     e.Handled = false;
-                }
-                else { e.Handled = true; }
+                    break;
+                default:
+                    e.Handled = true;
+                    break;
             }
-            else if (key == Key.Tab)
-            {
-                e.Handled = false;
-            }
-            else { e.Handled = true; }
         }
 
         private static void SelectAllText(object sender, RoutedEventArgs e)
