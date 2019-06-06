@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using SudokuAlgorithm;
+using WpfSudoku.UnsafeSudokuSolver;
 
 namespace WpfSudoku
 {
@@ -82,7 +84,9 @@ namespace WpfSudoku
 
         private void SolveButtonClick(object sender, RoutedEventArgs e)
         {
-            viewModel.Set(RecursiveBacktrackingSolver.solve(viewModel.Grid));
+            UnsafeSudokuModel model = new UnsafeSudokuModel(viewModel.Grid);
+            viewModel.Set(model.Solve());
+            //viewModel.Set(RecursiveBacktrackingSolver.solve(viewModel.Grid));
         }
 
         private void ResetButtonClick(object sender, RoutedEventArgs e)
@@ -132,4 +136,6 @@ namespace WpfSudoku
         }
 
     }
+
+    
 }
