@@ -88,14 +88,14 @@ namespace WpfSudoku
         }
 
         private Func<SudokuViewModel, Action> FSharpSolver = (SudokuViewModel viewModel) => () => {
-            MessageBox.Show("Using F sharp algorithm");
             viewModel.Set(RecursiveBacktrackingSolver.solve(viewModel.Grid));
+            MessageBox.Show("Solved with F sharp algorithm");
         };
 
         private Func<SudokuViewModel, Action> CSharpSolver = (SudokuViewModel viewModel) => () => {
-            MessageBox.Show("Using C sharp algorithm");
             UnsafeSudokuModel model = new UnsafeSudokuModel(viewModel.Grid);
             viewModel.Set(model.Solve());
+            MessageBox.Show("Solved with C sharp algorithm");
         };
 
         private void SolveButtonClick(object sender, RoutedEventArgs e)
