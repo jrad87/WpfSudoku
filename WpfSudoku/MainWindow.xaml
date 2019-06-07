@@ -5,228 +5,237 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfSudoku"
         mc:Ignorable="d"
-        Title="SudokuSolver" Height="412" Width="374">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+        Title="SudokuSolver" Height="444" Width="374">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Algorithm" Name="SelectionMenu">
+                <MenuItem Header="F#" IsCheckable="True" IsChecked="True" Click="SelectAlgorithmClick"/>
+                <MenuItem Header="C# Unsafe Pointers" IsCheckable="True" Click="SelectAlgorithmClick"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
 
-            <RowDefinition Height="10"/>
+                <RowDefinition Height="10"/>
 
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
 
-            <RowDefinition Height="10"/>
+                <RowDefinition Height="10"/>
 
-            <RowDefinition Height = "30" />
-            <RowDefinition Height = "30" />
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-        </Grid.RowDefinitions>
+                <RowDefinition Height = "30" />
+                <RowDefinition Height = "30" />
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
 
-            <ColumnDefinition Width = "10" />
+                <ColumnDefinition Width = "10" />
 
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
 
-            <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="10" />
 
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-            <ColumnDefinition Width = "30" />
-        </Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+                <ColumnDefinition Width = "30" />
+            </Grid.ColumnDefinitions>
 
 
-        <!--
+            <!--
         Laying out the texboxes this way is very stupid. 
         There must be a better way
         -->
-        <local:SingleDigitField x:Name = "_0" Grid.Row="1" Grid.Column = "1" 
+            <local:SingleDigitField x:Name = "_0" Grid.Row="1" Grid.Column = "1" 
          Text = "{Binding Grid[0], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_1" Grid.Row="1" Grid.Column = "2" 
+            <local:SingleDigitField x:Name = "_1" Grid.Row="1" Grid.Column = "2" 
          Text = "{Binding Grid[1], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_2" Grid.Row="1" Grid.Column = "3"
+            <local:SingleDigitField x:Name = "_2" Grid.Row="1" Grid.Column = "3"
          Text = "{Binding Grid[2], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_3" Grid.Row="1" Grid.Column = "5" 
+            <local:SingleDigitField x:Name = "_3" Grid.Row="1" Grid.Column = "5" 
          Text = "{Binding Grid[3], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_4" Grid.Row="1" Grid.Column = "6" 
+            <local:SingleDigitField x:Name = "_4" Grid.Row="1" Grid.Column = "6" 
          Text = "{Binding Grid[4], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_5" Grid.Row="1" Grid.Column = "7" 
+            <local:SingleDigitField x:Name = "_5" Grid.Row="1" Grid.Column = "7" 
          Text = "{Binding Grid[5], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_6" Grid.Row="1" Grid.Column = "9" 
+            <local:SingleDigitField x:Name = "_6" Grid.Row="1" Grid.Column = "9" 
          Text = "{Binding Grid[6], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_7" Grid.Row="1" Grid.Column = "10" 
+            <local:SingleDigitField x:Name = "_7" Grid.Row="1" Grid.Column = "10" 
          Text = "{Binding Grid[7], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_8" Grid.Row="1" Grid.Column = "11" 
+            <local:SingleDigitField x:Name = "_8" Grid.Row="1" Grid.Column = "11" 
          Text = "{Binding Grid[8], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_9" Grid.Row="2" Grid.Column = "1" 
+            <local:SingleDigitField x:Name = "_9" Grid.Row="2" Grid.Column = "1" 
          Text = "{Binding Grid[9], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_10" Grid.Row="2" Grid.Column = "2" 
+            <local:SingleDigitField x:Name = "_10" Grid.Row="2" Grid.Column = "2" 
          Text = "{Binding Grid[10], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_11" Grid.Row="2" Grid.Column = "3"
+            <local:SingleDigitField x:Name = "_11" Grid.Row="2" Grid.Column = "3"
          Text = "{Binding Grid[11], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_12" Grid.Row="2" Grid.Column = "5" 
+            <local:SingleDigitField x:Name = "_12" Grid.Row="2" Grid.Column = "5" 
          Text = "{Binding Grid[12], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_13" Grid.Row="2" Grid.Column = "6" 
+            <local:SingleDigitField x:Name = "_13" Grid.Row="2" Grid.Column = "6" 
          Text = "{Binding Grid[13], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_14" Grid.Row="2" Grid.Column = "7" 
+            <local:SingleDigitField x:Name = "_14" Grid.Row="2" Grid.Column = "7" 
          Text = "{Binding Grid[14], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_15" Grid.Row="2" Grid.Column = "9" 
+            <local:SingleDigitField x:Name = "_15" Grid.Row="2" Grid.Column = "9" 
          Text = "{Binding Grid[15], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_16" Grid.Row="2" Grid.Column = "10" 
+            <local:SingleDigitField x:Name = "_16" Grid.Row="2" Grid.Column = "10" 
          Text = "{Binding Grid[16], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_17" Grid.Row="2" Grid.Column = "11" 
+            <local:SingleDigitField x:Name = "_17" Grid.Row="2" Grid.Column = "11" 
          Text = "{Binding Grid[17], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_18" Grid.Row="3" Grid.Column = "1" 
+            <local:SingleDigitField x:Name = "_18" Grid.Row="3" Grid.Column = "1" 
          Text = "{Binding Grid[18], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_19" Grid.Row="3" Grid.Column = "2" 
+            <local:SingleDigitField x:Name = "_19" Grid.Row="3" Grid.Column = "2" 
          Text = "{Binding Grid[19], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_20" Grid.Row="3" Grid.Column = "3"
+            <local:SingleDigitField x:Name = "_20" Grid.Row="3" Grid.Column = "3"
          Text = "{Binding Grid[20], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_21" Grid.Row="3" Grid.Column = "5" 
+            <local:SingleDigitField x:Name = "_21" Grid.Row="3" Grid.Column = "5" 
          Text = "{Binding Grid[21], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_22" Grid.Row="3" Grid.Column = "6" 
+            <local:SingleDigitField x:Name = "_22" Grid.Row="3" Grid.Column = "6" 
          Text = "{Binding Grid[22], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_23" Grid.Row="3" Grid.Column = "7" 
+            <local:SingleDigitField x:Name = "_23" Grid.Row="3" Grid.Column = "7" 
          Text = "{Binding Grid[23], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_24" Grid.Row="3" Grid.Column = "9" 
+            <local:SingleDigitField x:Name = "_24" Grid.Row="3" Grid.Column = "9" 
          Text = "{Binding Grid[24], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_25" Grid.Row="3" Grid.Column = "10" 
+            <local:SingleDigitField x:Name = "_25" Grid.Row="3" Grid.Column = "10" 
          Text = "{Binding Grid[25], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_26" Grid.Row="3" Grid.Column = "11" 
+            <local:SingleDigitField x:Name = "_26" Grid.Row="3" Grid.Column = "11" 
          Text = "{Binding Grid[26], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_27" Grid.Row="5" Grid.Column = "1"  
+            <local:SingleDigitField x:Name = "_27" Grid.Row="5" Grid.Column = "1"  
          Text = "{Binding Grid[27], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_28" Grid.Row="5" Grid.Column = "2"  
+            <local:SingleDigitField x:Name = "_28" Grid.Row="5" Grid.Column = "2"  
          Text = "{Binding Grid[28], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_29" Grid.Row="5" Grid.Column = "3" 
+            <local:SingleDigitField x:Name = "_29" Grid.Row="5" Grid.Column = "3" 
          Text = "{Binding Grid[29], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_30" Grid.Row="5" Grid.Column = "5"  
+            <local:SingleDigitField x:Name = "_30" Grid.Row="5" Grid.Column = "5"  
          Text = "{Binding Grid[30], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_31" Grid.Row="5" Grid.Column = "6"  
+            <local:SingleDigitField x:Name = "_31" Grid.Row="5" Grid.Column = "6"  
          Text = "{Binding Grid[31], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_32" Grid.Row="5" Grid.Column = "7"  
+            <local:SingleDigitField x:Name = "_32" Grid.Row="5" Grid.Column = "7"  
          Text = "{Binding Grid[32], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_33" Grid.Row="5" Grid.Column = "9"  
+            <local:SingleDigitField x:Name = "_33" Grid.Row="5" Grid.Column = "9"  
          Text = "{Binding Grid[33], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_34" Grid.Row="5" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_34" Grid.Row="5" Grid.Column = "10"  
          Text = "{Binding Grid[34], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_35" Grid.Row="5" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_35" Grid.Row="5" Grid.Column = "11"  
          Text = "{Binding Grid[35], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_36" Grid.Row="6" Grid.Column = "1"  
+            <local:SingleDigitField x:Name = "_36" Grid.Row="6" Grid.Column = "1"  
          Text = "{Binding Grid[36], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_37" Grid.Row="6" Grid.Column = "2"  
+            <local:SingleDigitField x:Name = "_37" Grid.Row="6" Grid.Column = "2"  
          Text = "{Binding Grid[37], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_38" Grid.Row="6" Grid.Column = "3" 
+            <local:SingleDigitField x:Name = "_38" Grid.Row="6" Grid.Column = "3" 
          Text = "{Binding Grid[38], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_39" Grid.Row="6" Grid.Column = "5"  
+            <local:SingleDigitField x:Name = "_39" Grid.Row="6" Grid.Column = "5"  
          Text = "{Binding Grid[39], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_40" Grid.Row="6" Grid.Column = "6"  
+            <local:SingleDigitField x:Name = "_40" Grid.Row="6" Grid.Column = "6"  
          Text = "{Binding Grid[40], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_41" Grid.Row="6" Grid.Column = "7"  
+            <local:SingleDigitField x:Name = "_41" Grid.Row="6" Grid.Column = "7"  
          Text = "{Binding Grid[41], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_42" Grid.Row="6" Grid.Column = "9"  
+            <local:SingleDigitField x:Name = "_42" Grid.Row="6" Grid.Column = "9"  
          Text = "{Binding Grid[42], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_43" Grid.Row="6" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_43" Grid.Row="6" Grid.Column = "10"  
          Text = "{Binding Grid[43], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_44" Grid.Row="6" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_44" Grid.Row="6" Grid.Column = "11"  
          Text = "{Binding Grid[44], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_45" Grid.Row="7" Grid.Column = "1"  
+            <local:SingleDigitField x:Name = "_45" Grid.Row="7" Grid.Column = "1"  
          Text = "{Binding Grid[45], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_46" Grid.Row="7" Grid.Column = "2"  
+            <local:SingleDigitField x:Name = "_46" Grid.Row="7" Grid.Column = "2"  
          Text = "{Binding Grid[46], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_47" Grid.Row="7" Grid.Column = "3" 
+            <local:SingleDigitField x:Name = "_47" Grid.Row="7" Grid.Column = "3" 
          Text = "{Binding Grid[47], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_48" Grid.Row="7" Grid.Column = "5"  
+            <local:SingleDigitField x:Name = "_48" Grid.Row="7" Grid.Column = "5"  
          Text = "{Binding Grid[48], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_49" Grid.Row="7" Grid.Column = "6"  
+            <local:SingleDigitField x:Name = "_49" Grid.Row="7" Grid.Column = "6"  
          Text = "{Binding Grid[49], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_50" Grid.Row="7" Grid.Column = "7"  
+            <local:SingleDigitField x:Name = "_50" Grid.Row="7" Grid.Column = "7"  
          Text = "{Binding Grid[50], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_51" Grid.Row="7" Grid.Column = "9"  
+            <local:SingleDigitField x:Name = "_51" Grid.Row="7" Grid.Column = "9"  
          Text = "{Binding Grid[51], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_52" Grid.Row="7" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_52" Grid.Row="7" Grid.Column = "10"  
          Text = "{Binding Grid[52], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_53" Grid.Row="7" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_53" Grid.Row="7" Grid.Column = "11"  
          Text = "{Binding Grid[53], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_54" Grid.Row="9" Grid.Column = "1"  
+            <local:SingleDigitField x:Name = "_54" Grid.Row="9" Grid.Column = "1"  
          Text = "{Binding Grid[54], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_55" Grid.Row="9" Grid.Column = "2"  
+            <local:SingleDigitField x:Name = "_55" Grid.Row="9" Grid.Column = "2"  
          Text = "{Binding Grid[55], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_56" Grid.Row="9" Grid.Column = "3" 
+            <local:SingleDigitField x:Name = "_56" Grid.Row="9" Grid.Column = "3" 
          Text = "{Binding Grid[56], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_57" Grid.Row="9" Grid.Column = "5"  
+            <local:SingleDigitField x:Name = "_57" Grid.Row="9" Grid.Column = "5"  
          Text = "{Binding Grid[57], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_58" Grid.Row="9" Grid.Column = "6"  
+            <local:SingleDigitField x:Name = "_58" Grid.Row="9" Grid.Column = "6"  
          Text = "{Binding Grid[58], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_59" Grid.Row="9" Grid.Column = "7"  
+            <local:SingleDigitField x:Name = "_59" Grid.Row="9" Grid.Column = "7"  
          Text = "{Binding Grid[59], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_60" Grid.Row="9" Grid.Column = "9"  
+            <local:SingleDigitField x:Name = "_60" Grid.Row="9" Grid.Column = "9"  
          Text = "{Binding Grid[60], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_61" Grid.Row="9" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_61" Grid.Row="9" Grid.Column = "10"  
          Text = "{Binding Grid[61], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_62" Grid.Row="9" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_62" Grid.Row="9" Grid.Column = "11"  
          Text = "{Binding Grid[62], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_63" Grid.Row="10" Grid.Column = "1"  
+            <local:SingleDigitField x:Name = "_63" Grid.Row="10" Grid.Column = "1"  
          Text = "{Binding Grid[63], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_64" Grid.Row="10" Grid.Column = "2"  
+            <local:SingleDigitField x:Name = "_64" Grid.Row="10" Grid.Column = "2"  
          Text = "{Binding Grid[64], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_65" Grid.Row="10" Grid.Column = "3" 
+            <local:SingleDigitField x:Name = "_65" Grid.Row="10" Grid.Column = "3" 
          Text = "{Binding Grid[65], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_66" Grid.Row="10" Grid.Column = "5"  
+            <local:SingleDigitField x:Name = "_66" Grid.Row="10" Grid.Column = "5"  
          Text = "{Binding Grid[66], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_67" Grid.Row="10" Grid.Column = "6"  
+            <local:SingleDigitField x:Name = "_67" Grid.Row="10" Grid.Column = "6"  
          Text = "{Binding Grid[67], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_68" Grid.Row="10" Grid.Column = "7"  
+            <local:SingleDigitField x:Name = "_68" Grid.Row="10" Grid.Column = "7"  
          Text = "{Binding Grid[68], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_69" Grid.Row="10" Grid.Column = "9"  
+            <local:SingleDigitField x:Name = "_69" Grid.Row="10" Grid.Column = "9"  
          Text = "{Binding Grid[69], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_70" Grid.Row="10" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_70" Grid.Row="10" Grid.Column = "10"  
          Text = "{Binding Grid[70], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_71" Grid.Row="10" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_71" Grid.Row="10" Grid.Column = "11"  
          Text = "{Binding Grid[71], Mode = TwoWay}" />
 
-        <local:SingleDigitField x:Name = "_72" Grid.Row="11" Grid.Column = "1"
+            <local:SingleDigitField x:Name = "_72" Grid.Row="11" Grid.Column = "1"
          Text = "{Binding Grid[72], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_73" Grid.Row="11" Grid.Column = "2" 
+            <local:SingleDigitField x:Name = "_73" Grid.Row="11" Grid.Column = "2" 
          Text = "{Binding Grid[73], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_74" Grid.Row="11" Grid.Column = "3"
+            <local:SingleDigitField x:Name = "_74" Grid.Row="11" Grid.Column = "3"
          Text = "{Binding Grid[74], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_75" Grid.Row="11" Grid.Column = "5" 
+            <local:SingleDigitField x:Name = "_75" Grid.Row="11" Grid.Column = "5" 
          Text = "{Binding Grid[75], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_76" Grid.Row="11" Grid.Column = "6" 
+            <local:SingleDigitField x:Name = "_76" Grid.Row="11" Grid.Column = "6" 
          Text = "{Binding Grid[76], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_77" Grid.Row="11" Grid.Column = "7" 
+            <local:SingleDigitField x:Name = "_77" Grid.Row="11" Grid.Column = "7" 
          Text = "{Binding Grid[77], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_78" Grid.Row="11" Grid.Column = "9" 
+            <local:SingleDigitField x:Name = "_78" Grid.Row="11" Grid.Column = "9" 
          Text = "{Binding Grid[78], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_79" Grid.Row="11" Grid.Column = "10"  
+            <local:SingleDigitField x:Name = "_79" Grid.Row="11" Grid.Column = "10"  
          Text = "{Binding Grid[79], Mode = TwoWay}" />
-        <local:SingleDigitField x:Name = "_80" Grid.Row="11" Grid.Column = "11"  
+            <local:SingleDigitField x:Name = "_80" Grid.Row="11" Grid.Column = "11"  
          Text = "{Binding Grid[80], Mode = TwoWay}" />
 
 
-        <Button Content="Solve" Click="SolveButtonClick"  Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3" />
-        <Button Content="Reset" Click="ResetButtonClick" Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3"/>
-    </Grid>
+            <Button Content="Solve" Click="SolveButtonClick"  Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3" />
+            <Button Content="Reset" Click="ResetButtonClick" Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3"/>
+        </Grid>
+    </DockPanel>
+    
 </Window>

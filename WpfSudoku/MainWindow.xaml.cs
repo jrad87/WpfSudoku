@@ -1,5 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -76,22 +79,50 @@ namespace WpfSudoku
     public partial class MainWindow : Window
     {
         private SudokuViewModel viewModel = new SudokuViewModel();
+        private Action SudokuAlgorithmWrapper;
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = viewModel;
+            this.SudokuAlgorithmWrapper = FSharpSolver(this.viewModel);
         }
+
+        private Func<SudokuViewModel, Action> FSharpSolver = (SudokuViewModel viewModel) => () => {
+            MessageBox.Show("Using F sharp algorithm");
+            viewModel.Set(RecursiveBacktrackingSolver.solve(viewModel.Grid));
+        };
+
+        private Func<SudokuViewModel, Action> CSharpSolver = (SudokuViewModel viewModel) => () => {
+            MessageBox.Show("Using C sharp algorithm");
+            UnsafeSudokuModel model = new UnsafeSudokuModel(viewModel.Grid);
+            viewModel.Set(model.Solve());
+        };
 
         private void SolveButtonClick(object sender, RoutedEventArgs e)
         {
-            UnsafeSudokuModel model = new UnsafeSudokuModel(viewModel.Grid);
-            viewModel.Set(model.Solve());
-            //viewModel.Set(RecursiveBacktrackingSolver.solve(viewModel.Grid));
+            SudokuAlgorithmWrapper();
         }
 
         private void ResetButtonClick(object sender, RoutedEventArgs e)
         {
             viewModel.ResetAll();
+        }
+
+        private void SelectAlgorithmClick(object sender, RoutedEventArgs e) {
+            foreach(var item in this.SelectionMenu.Items.SourceCollection) {
+                MenuItem menuItem = item as MenuItem;
+                if (menuItem.Header != (sender as MenuItem).Header) menuItem.IsChecked = false;
+            }
+            switch((sender as MenuItem).Header) {
+                case "F#":
+                    this.SudokuAlgorithmWrapper = FSharpSolver(this.viewModel);
+                    break;
+                case "C# Unsafe Pointers":
+                    this.SudokuAlgorithmWrapper = CSharpSolver(this.viewModel);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -128,11 +159,8 @@ namespace WpfSudoku
 
         protected void OnPropertyChanged(string name)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(name));  
         }
 
     }
